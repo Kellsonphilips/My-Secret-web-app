@@ -1,0 +1,34 @@
+
+body {
+  background-color: #E8ECEF;
+}
+
+.btn {
+  padding-top: .2rem;
+}
+
+.centered {
+  padding-top: 200px;
+  text-align: center;
+}
+
+.secret-text {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #000;
+}
+
+.footer {
+  width: 100%;
+  height: 2rem;
+  bottom: 0;
+  background-color: #E8ECEF;
+  position: absolute;
+  text-align: center;
+  padding: 1rem 0 2rem 0;
+}
+
+.lg-rg-btn {
+  padding-top: 1rem;
+}
