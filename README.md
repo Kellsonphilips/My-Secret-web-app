@@ -7,7 +7,7 @@ In this project all stages of athentication, encryption and decryption is tested
  - Level 2    Database encryption cipher method
  - Level 3    Md5 hash: encryption and Decryption
  - Level 4    Bycrypt hash, hashing and salting.
- - Level 5    Cookies and Session
+ - Level 5    Cookies and Session with passport
  
 
 
