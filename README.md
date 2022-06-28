@@ -9,3 +9,8 @@ In this project all stages of athentication, encryption and decryption is tested
  - Level 4    Bycrypt hash, hashing and salting.
  - Level 5    Cookies and Session
  
+
+
+# Athentication levels
+
+![IMG_0129](https://user-images.githubusercontent.com/81332784/176150112-223013a6-387c-4000-ad11-07a43fb2eac9.jpg)
