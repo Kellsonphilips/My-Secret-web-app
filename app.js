@@ -20,8 +20,8 @@ app.use(express.static("public"));
 ///////////////////Mongoose Url connection///////////////////////
 
 mongoose.connect(
-  "mongodb+srv://localhost:27017/userDB",
-  {useNewUrlParser: true}
+  "mongodb+srv://kellsonphilips:Light45617398@firstcluster0.wft7b.mongodb.net/userDB",
+  { useNewUrlParser: true }
 );
 
 ///////////////////Creation of mongoose DB Schema////////////////////////
