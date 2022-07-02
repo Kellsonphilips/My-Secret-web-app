@@ -38,7 +38,7 @@ app.use(passport.session());
 ///////////////////Mongoose Url connection///////////////////////
 
 mongoose.connect(
-  "mongodb+srv://kellsonphilips:Light45617398@firstcluster0.wft7b.mongodb.net/userDB",
+  "mongodb:https://localhost:3000/userDB",
   { useNewUrlParser: true }
 );
 
@@ -244,7 +244,7 @@ app.post("/login", function(req, res) {
 app.post("/submit", function(req, res) {
     const submittedtedSecret = req.body.secret;
 
-   User.findById(req.user.id, function(err, foundUser) {
+    User.findById(req.user.id, function(err, foundUser) {
         if (err) {
             console.log(err);
         } else {
