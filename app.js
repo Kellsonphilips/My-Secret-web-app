@@ -38,7 +38,7 @@ app.use(passport.session());
 ///////////////////Mongoose Url connection///////////////////////
 
 mongoose.connect(
-  "mongodb+srv://kellsonphilips:Light45617398@firstcluster0.wft7b.mongodb.net/userDB",
+  "mongodb:https://localhost:3000/userDB",
   { useNewUrlParser: true }
 );
 
@@ -46,7 +46,9 @@ mongoose.connect(
 
 const userSchema = new mongoose.Schema({
     email: String,
-    password: String
+    password: String,
+    googleId: String,
+    secrets: String
 });
 
 //////////////////Initailizing passport-local-mongoose modules /////////////////////////
@@ -54,10 +56,6 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-///////////////// Another Schema ///////////////////////////////////
-const secretSchema = new mongoose.Schema ({
-    secrets: String
-});
 
 //////////////////Creation of mongoose model ///////////////////////
 
@@ -67,29 +65,37 @@ const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
+});
 
 
 ///////////////// passport and google OAuth /////////////////////////////
 
-passport.use( new GoogleStrategy(
+passport.use(new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "https://localhost:3000/auth/google/secrets",
+      callbackURL: "http://localhost:3000/auth/google/secrets",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
-    function (accessToken, refreshToken, profile, cb) {
+    function (accessToken, refreshToken, profile, done) {
+      console.log(profile);
+
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
+        return done(err, user);
       });
     }
-  )
-);
-
-///////////////// Another mongoose model /////////////////////////////
-const Secret = new mongoose.model("Secret", secretSchema);
+));
 
 ////////////// App routes ///////////////////////
 
@@ -97,8 +103,25 @@ app.get("/", function (req, res) {
     res.render("home");
 });
 
-app.get("/login", function(req, res) {
-    res.render("login");
+app.get("/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+//////// Successful authentication, redirect to secrets route. ///////////////
+
+app.get("/auth/google/secrets", function(req, res) {
+    passport.authenticate("google", {
+        successRedirect: "/secrets"
+    }, function(err) {
+        if (err) {
+           console.log(err); 
+        }
+    });    
+});
+
+
+https: app.get("/login", function (req, res) {
+  res.render("login");
 });
 
 app.get("/logout", function(req, res) {
@@ -111,7 +134,11 @@ app.get("/register", function (req, res) {
 });
 
 app.get("/submit", function (req, res) {
-  res.render("submit");
+  if (req.isAuthenticated) {
+    res.render("submit");
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.get("/secrets", function (req, res) {
@@ -209,18 +236,22 @@ app.post("/login", function(req, res) {
 /////////////////// Post Creation and route ////////////////////////
 
 app.post("/submit", function(req, res) {
+    const submittedtedSecret = req.body.secret;
 
-    const newSecret = new Secret ({
-        secrets: req.body.secret
-    });
+   console.log(req.user.id);
 
-    newSecret.save(function(err) {
-        if (!err) {
-            res.send("Your secrets are saved and safe.");
+   User.findById(req.user.id, function(err, foundUser) {
+        if (err) {
+            console.log(err);
         } else {
-            res.send("You have no secrets saved!")
+            if (foundUser) {
+                foundUser.secrets = submittedtedSecret;
+                foundUser.save(function() {
+                    res.redirect("/secrets");
+                });
+            }
         }
-    });
+   });
 });
 
 
