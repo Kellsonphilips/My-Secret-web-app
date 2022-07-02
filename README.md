@@ -8,10 +8,12 @@ In this project all stages of athentication, encryption and decryption is tested
  - Level 3  Md5 hash: encryption and Decryption
  - Level 4  Bycrypt hash, hashing and salting.
  - Level 5  Cookies and Session with passport
- - Level 6  Coming Up Next
+ - Level 6  Passport strategy google OAuth2.0 
  
 
 
 # Athentication levels
 
 ![IMG_0129](https://user-images.githubusercontent.com/81332784/176150112-223013a6-387c-4000-ad11-07a43fb2eac9.jpg)
+
+All levels of authentication completed with testing.
