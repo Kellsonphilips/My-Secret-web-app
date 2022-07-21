@@ -3,7 +3,7 @@
                         Version 2.0, January 2022
                      http://www.apache.org/licenses/
 
-TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION OF THIS SOFTWARE
+### TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION OF THIS SOFTWARE
 
 1. Definitions.
 
@@ -176,7 +176,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION OF THIS SOFTWARE
 
 END OF TERMS AND CONDITIONS
 
-APPENDIX: How to apply the Apache License to your work.
+### APPENDIX: How to apply the Apache License to your work.
 
    To apply the Apache License to your work, attach the following
    boilerplate notice, with the fields enclosed by brackets "[]"
@@ -187,13 +187,13 @@ APPENDIX: How to apply the Apache License to your work.
    same "printed page" as the copyright notice for easier
    identification within third-party archives.
 
-Copyright [yyyy] [name of copyright owner]
+Copyright 2022 [Philip.O] (https://github.com/Kellsonphilips)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+   ` http://www.apache.org/licenses/LICENSE-2.0 `
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
